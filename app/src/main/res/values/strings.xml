@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Sample</string>
+
+    <string name="title_name">姓名</string>
+    <string name="title_classname">班级</string>
+    <string name="title_age">年龄</string>
+
+    <string name="button_text_add">添加</string>
+    <string name="button_text_update">修改</string>
+    <string name="button_text_delete">删除</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.buaa.sample.model;
 
-public class StudentInfo {
+import java.io.Serializable;
+
+public class StudentInfo implements Serializable {
 
     private String id; // android.provider.BaseColumns._ID
     private String name;
@@ -48,4 +50,13 @@ public class StudentInfo {
         this.age = age;
     }
 
+    @Override
+    public String toString() {
+        return "StudentInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", className='" + className + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

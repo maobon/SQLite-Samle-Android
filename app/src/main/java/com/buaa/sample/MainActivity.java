@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
             // dao.delete();
             Log.wtf("XXX", "info:" + studentInfo.getId());
 
-            dao.delete(studentInfo.getId());
-            updateRecyclerView();
+            // dao.delete(studentInfo.getId());
+            // updateRecyclerView();
+
+            InfoActivity.launch(MainActivity.this, studentInfo);
 
         });
     }
