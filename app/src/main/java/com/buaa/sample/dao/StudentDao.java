@@ -37,15 +37,25 @@ public class StudentDao {
         dbHelper = new StudentInfoDbHelper(context);
     }
 
-    public long insert(StudentInfo info) {
+    /**
+     * 新增
+     *
+     * @param info StudentInfo
+     */
+    public void insert(StudentInfo info) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_STUDENT_NAME, info.getName());
         values.put(COLUMN_NAME_CLASS_NAME, info.getClassName());
         values.put(COLUMN_NAME_STUDENT_AGE, info.getAge());
-        return db.insert(TABLE_NAME, null, values);
+        db.insert(TABLE_NAME, null, values);
     }
 
+    /**
+     * 查找
+     *
+     * @return List<StudentInfo>
+     */
     public List<StudentInfo> query() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {_ID, COLUMN_NAME_STUDENT_NAME, COLUMN_NAME_CLASS_NAME, COLUMN_NAME_STUDENT_AGE};
@@ -67,9 +77,13 @@ public class StudentDao {
         return list;
     }
 
+    /**
+     * 修改
+     *
+     * @param info StudentInfo
+     */
     public void update(StudentInfo info) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_STUDENT_NAME, info.getName());
         values.put(COLUMN_NAME_CLASS_NAME, info.getClassName());
@@ -77,14 +91,22 @@ public class StudentDao {
 
         String selection = _ID + " LIKE ?";
         String[] selectionArgs = {info.getId()};
-
         db.update(TABLE_NAME, values, selection, selectionArgs);
     }
 
+    /**
+     * 删除
+     *
+     * @param id PRIMARY KEY
+     */
     public void delete(String id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String selection = _ID + " LIKE ?";
         String[] selectionArgs = {id};
         db.delete(TABLE_NAME, selection, selectionArgs);
+    }
+
+    public void disconnect() {
+        dbHelper.close();
     }
 }

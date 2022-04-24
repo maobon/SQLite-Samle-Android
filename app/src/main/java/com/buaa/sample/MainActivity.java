@@ -1,11 +1,9 @@
 package com.buaa.sample;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
     private StudentInfoAdapter mStudentInfoAdapter;
 
-    //private List<StudentInfo> mDataSet = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
-        final StudentDao dao = StudentDao.getInstance(this);
         mStudentInfoAdapter = new StudentInfoAdapter();
 
         RecyclerView recyclerView = activityMainBinding.getRoot();
@@ -41,23 +36,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mStudentInfoAdapter);
 
-        List<StudentInfo> list = dao.query();
-        if (list != null && list.size() > 0) {
-            mStudentInfoAdapter.refreshDataSet(list);
-        }
-
         mStudentInfoAdapter.setClickListener((adapterPosition, studentInfo) -> {
-            // mDataSet.remove(adapterPosition);
-            // mStudentInfoAdapter.refreshDataSet(mDataSet);
-            // dao.delete();
-            Log.wtf("XXX", "info:" + studentInfo.getId());
-
-            // dao.delete(studentInfo.getId());
-            // updateRecyclerView();
-
             InfoActivity.launch(MainActivity.this, studentInfo);
-
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateRecyclerView();
     }
 
     @Override
@@ -68,16 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_add_new) {
-            final StudentDao dao = StudentDao.getInstance(this);
-            Toast.makeText(this, "afdadad", Toast.LENGTH_SHORT).show();
-
-            long insert = dao.insert(new StudentInfo("hhh", "kkkk", 13));
-            Log.wtf("HAHA", "id:" + insert);
-
-            updateRecyclerView();
-
-        }
+        if (item.getItemId() == R.id.action_add_new)
+            InfoActivity.launch(this);
         return true;
     }
 

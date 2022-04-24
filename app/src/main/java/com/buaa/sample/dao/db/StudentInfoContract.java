@@ -7,7 +7,9 @@ public final class StudentInfoContract {
     private StudentInfoContract() {
     }
 
+    // StudentInfo entry
     public static class StudentInfoEntry implements BaseColumns {
+
         public static final String TABLE_NAME = "student_info";
 
         public static final String COLUMN_NAME_STUDENT_NAME = "name";
