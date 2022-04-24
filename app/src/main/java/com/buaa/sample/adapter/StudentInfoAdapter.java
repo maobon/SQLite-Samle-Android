@@ -21,7 +21,7 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
 
     public interface ItemClickListener {
 
-        void onItemClick(int adapterPosition);
+        void onItemClick(int adapterPosition, StudentInfo studentInfo);
     }
 
     public void setClickListener(ItemClickListener clickListener) {
@@ -72,7 +72,8 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
 
         @Override
         public void onClick(View view) {
-            clickListener.onItemClick(getAdapterPosition());
+            if (clickListener != null)
+                clickListener.onItemClick(getAdapterPosition(), studentInfoList.get(getAdapterPosition()));
         }
     }
 
