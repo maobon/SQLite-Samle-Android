@@ -55,6 +55,24 @@ public class InfoActivity extends AppCompatActivity {
             dao.insert(student);
             finish();
         });
+
+        activityInfoBinding.btnUpdate.setOnClickListener(view -> {
+            StudentInfo student = new StudentInfo(
+                    activityInfoBinding.etName.getText().toString(),
+                    activityInfoBinding.etClassName.getText().toString(),
+                    Integer.parseInt(activityInfoBinding.etAge.getText().toString())
+            );
+            assert info != null;
+            student.setId(info.getId());
+            dao.update(student);
+            finish();
+        });
+
+        activityInfoBinding.btnDelete.setOnClickListener(view -> {
+            assert info != null;
+            dao.delete(info.getId());
+            finish();
+        });
     }
 
     private void generateRandomData() {
