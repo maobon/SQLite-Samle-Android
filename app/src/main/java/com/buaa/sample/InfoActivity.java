@@ -15,7 +15,6 @@ import com.buaa.sample.model.Major;
 import com.buaa.sample.model.StudentInfo;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -51,6 +50,8 @@ public class InfoActivity extends AppCompatActivity {
 
         } else {
             generateRandomData();
+            activityInfoBinding.btnDelete.setVisibility(View.GONE);
+            activityInfoBinding.btnUpdate.setVisibility(View.GONE);
         }
 
         // ...
@@ -108,9 +109,10 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void generateRandomData() {
-        activityInfoBinding.etName.setText(UUID.randomUUID().toString().split("-")[3]);
-        activityInfoBinding.spinnerMajor.setSelection(0);
-        activityInfoBinding.etAge.setText(String.valueOf(new Random().nextInt(30)));
+        String[] stringArray = getResources().getStringArray(R.array.names_random_list);
+        activityInfoBinding.etName.setText(stringArray[new Random().nextInt(stringArray.length - 1)]);
+        activityInfoBinding.spinnerMajor.setSelection(new Random().nextInt(2));
+        activityInfoBinding.etAge.setText(String.valueOf(18 + new Random().nextInt(4)));
     }
 
     @Override

@@ -24,11 +24,12 @@
             android:id="@+id/et_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="25dp"
             android:layout_weight="1"
             android:autofillHints="@null"
+            android:background="@android:color/transparent"
             android:inputType="text"
-            android:textSize="18sp"
+            android:textSize="16sp"
             tools:ignore="LabelFor" />
     </LinearLayout>
 
@@ -74,11 +75,12 @@
             android:id="@+id/et_age"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="25dp"
             android:layout_weight="1"
             android:autofillHints="@null"
-            android:inputType="text"
-            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:inputType="number"
+            android:textSize="16sp"
             tools:ignore="LabelFor" />
     </LinearLayout>
 

@@ -50,13 +50,4 @@ public class StudentInfo implements Serializable {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "StudentInfo{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", className='" + className + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }

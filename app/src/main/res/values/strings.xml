@@ -8,4 +8,16 @@
     <string name="button_text_add">添加</string>
     <string name="button_text_update">修改</string>
     <string name="button_text_delete">删除</string>
+
+    <string-array name="names_random_list">
+        <item>张伟</item>
+        <item>王伟</item>
+        <item>王芳</item>
+        <item>李伟</item>
+        <item>李娜</item>
+        <item>张敏</item>
+        <item>李静</item>
+        <item>王静</item>
+        <item>刘伟</item>
+    </string-array>
 </resources>
