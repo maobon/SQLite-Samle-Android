@@ -116,6 +116,7 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        StudentDao.getInstance(this).disconnect();
         activityInfoBinding = null;
     }
 
