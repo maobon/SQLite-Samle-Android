@@ -3,11 +3,15 @@ package com.buaa.sample;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.buaa.sample.dao.StudentDao;
 import com.buaa.sample.databinding.ActivityInfoBinding;
+import com.buaa.sample.model.Major;
 import com.buaa.sample.model.StudentInfo;
 
 import java.util.Random;
@@ -16,6 +20,7 @@ import java.util.UUID;
 public class InfoActivity extends AppCompatActivity {
 
     private ActivityInfoBinding activityInfoBinding;
+    private String majorIndex;
 
     public static void launch(Activity activity) {
         launch(activity, null);
@@ -36,11 +41,14 @@ public class InfoActivity extends AppCompatActivity {
 
         final StudentDao dao = StudentDao.getInstance(this);
 
+        initSpinner();
+
         StudentInfo info = (StudentInfo) getIntent().getSerializableExtra("info");
         if (info != null) {
             activityInfoBinding.etName.setText(info.getName());
-            activityInfoBinding.etClassName.setText(info.getClassName());
+            activityInfoBinding.spinnerMajor.setSelection(Integer.parseInt(info.getClassName()));
             activityInfoBinding.etAge.setText(String.valueOf(info.getAge()));
+
         } else {
             generateRandomData();
         }
@@ -49,7 +57,7 @@ public class InfoActivity extends AppCompatActivity {
         activityInfoBinding.btnAdd.setOnClickListener(view -> {
             StudentInfo student = new StudentInfo(
                     activityInfoBinding.etName.getText().toString(),
-                    activityInfoBinding.etClassName.getText().toString(),
+                    majorIndex,
                     Integer.parseInt(activityInfoBinding.etAge.getText().toString())
             );
             dao.insert(student);
@@ -59,7 +67,7 @@ public class InfoActivity extends AppCompatActivity {
         activityInfoBinding.btnUpdate.setOnClickListener(view -> {
             StudentInfo student = new StudentInfo(
                     activityInfoBinding.etName.getText().toString(),
-                    activityInfoBinding.etClassName.getText().toString(),
+                    majorIndex,
                     Integer.parseInt(activityInfoBinding.etAge.getText().toString())
             );
             assert info != null;
@@ -75,9 +83,33 @@ public class InfoActivity extends AppCompatActivity {
         });
     }
 
+    private void initSpinner() {
+        String[] strings = new String[Major.values().length];
+        int index = 0;
+        for (Major major : Major.values()) {
+            strings[index] = major.name;
+            index++;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, strings);
+        activityInfoBinding.spinnerMajor.setAdapter(adapter);
+
+        activityInfoBinding.spinnerMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                majorIndex = String.valueOf(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
     private void generateRandomData() {
         activityInfoBinding.etName.setText(UUID.randomUUID().toString().split("-")[3]);
-        activityInfoBinding.etClassName.setText("计算机科学与技术-2020");
+        activityInfoBinding.spinnerMajor.setSelection(0);
         activityInfoBinding.etAge.setText(String.valueOf(new Random().nextInt(30)));
     }
 
@@ -86,4 +118,5 @@ public class InfoActivity extends AppCompatActivity {
         super.onDestroy();
         activityInfoBinding = null;
     }
+
 }

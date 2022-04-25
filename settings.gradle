@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "SQLiteSample"
+rootProject.name = "SQLite-Sample-Android"
 include ':app'

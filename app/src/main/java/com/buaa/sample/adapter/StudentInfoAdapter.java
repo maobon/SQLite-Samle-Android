@@ -3,11 +3,13 @@ package com.buaa.sample.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.buaa.sample.databinding.LayoutItemBinding;
+import com.buaa.sample.R;
+import com.buaa.sample.model.Major;
 import com.buaa.sample.model.StudentInfo;
 
 import java.util.ArrayList;
@@ -31,7 +33,8 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new InnerHolder(LayoutItemBinding.inflate(LayoutInflater.from(parent.getContext())));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
+        return new InnerHolder(view);
     }
 
     @Override
@@ -55,19 +58,23 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
     protected class InnerHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private final LayoutItemBinding itemBinding;
+        private final TextView tvName;
+        private final TextView tvClassName;
+        private final TextView tvAge;
 
-        public InnerHolder(@NonNull LayoutItemBinding itemBinding) {
-            super(itemBinding.getRoot());
+        public InnerHolder(@NonNull View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
 
-            this.itemBinding = itemBinding;
-            itemBinding.getRoot().setOnClickListener(this);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvClassName = itemView.findViewById(R.id.tv_class_name);
+            tvAge = itemView.findViewById(R.id.tv_age);
         }
 
         public void dataBind(StudentInfo studentInfo) {
-            itemBinding.tvName.setText(studentInfo.getName());
-            itemBinding.tvClassName.setText(studentInfo.getClassName());
-            itemBinding.tvAge.setText(String.valueOf(studentInfo.getAge()));
+            tvName.setText(studentInfo.getName());
+            tvClassName.setText(Major.values()[Integer.parseInt(studentInfo.getClassName())].name);
+            tvAge.setText(String.valueOf(studentInfo.getAge()));
         }
 
         @Override
