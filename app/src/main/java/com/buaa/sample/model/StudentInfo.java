@@ -6,15 +6,15 @@ public class StudentInfo implements Serializable {
 
     private String id; // android.provider.BaseColumns._ID
     private String name;
-    private String className;
+    private int index; // major index
     private int age;
 
     public StudentInfo() {
     }
 
-    public StudentInfo(String name, String className, int age) {
+    public StudentInfo(String name, int index, int age) {
         this.name = name;
-        this.className = className;
+        this.index = index;
         this.age = age;
     }
 
@@ -34,12 +34,12 @@ public class StudentInfo implements Serializable {
         this.name = name;
     }
 
-    public String getClassName() {
-        return className;
+    public int getIndex() {
+        return index;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int getAge() {

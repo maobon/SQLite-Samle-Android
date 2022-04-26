@@ -7,7 +7,7 @@ class SQLConstants {
             "CREATE TABLE " + StudentInfoContract.StudentInfoEntry.TABLE_NAME + "(" +
                     StudentInfoContract.StudentInfoEntry._ID + " INTEGER PRIMARY KEY," +
                     StudentInfoContract.StudentInfoEntry.COLUMN_NAME_STUDENT_NAME + " TEXT," +
-                    StudentInfoContract.StudentInfoEntry.COLUMN_NAME_CLASS_NAME + " TEXT," +
+                    StudentInfoContract.StudentInfoEntry.COLUMN_NAME_MAJOR_INDEX + " INTEGER," +
                     StudentInfoContract.StudentInfoEntry.COLUMN_NAME_STUDENT_AGE + " INTEGER)";
 
     // delete table

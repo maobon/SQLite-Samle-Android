@@ -19,7 +19,7 @@ import java.util.Random;
 public class InfoActivity extends AppCompatActivity {
 
     private ActivityInfoBinding activityInfoBinding;
-    private String majorIndex;
+    private int majorIndex;
 
     public static void launch(Activity activity) {
         launch(activity, null);
@@ -44,8 +44,9 @@ public class InfoActivity extends AppCompatActivity {
 
         StudentInfo info = (StudentInfo) getIntent().getSerializableExtra("info");
         if (info != null) {
+            activityInfoBinding.btnAdd.setVisibility(View.GONE);
             activityInfoBinding.etName.setText(info.getName());
-            activityInfoBinding.spinnerMajor.setSelection(Integer.parseInt(info.getClassName()));
+            activityInfoBinding.spinnerMajor.setSelection(info.getIndex());
             activityInfoBinding.etAge.setText(String.valueOf(info.getAge()));
 
         } else {
@@ -98,7 +99,7 @@ public class InfoActivity extends AppCompatActivity {
         activityInfoBinding.spinnerMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                majorIndex = String.valueOf(i);
+                majorIndex = i;
             }
 
             @Override

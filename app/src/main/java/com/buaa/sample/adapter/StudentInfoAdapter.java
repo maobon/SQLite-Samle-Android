@@ -73,7 +73,7 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
 
         public void dataBind(StudentInfo studentInfo) {
             tvName.setText(studentInfo.getName());
-            tvClassName.setText(Major.values()[Integer.parseInt(studentInfo.getClassName())].name);
+            tvClassName.setText(Major.values()[studentInfo.getIndex()].name);
             tvAge.setText(String.valueOf(studentInfo.getAge()));
         }
 

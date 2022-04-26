@@ -1,7 +1,7 @@
 package com.buaa.sample.dao;
 
 import static android.provider.BaseColumns._ID;
-import static com.buaa.sample.dao.db.StudentInfoContract.StudentInfoEntry.COLUMN_NAME_CLASS_NAME;
+import static com.buaa.sample.dao.db.StudentInfoContract.StudentInfoEntry.COLUMN_NAME_MAJOR_INDEX;
 import static com.buaa.sample.dao.db.StudentInfoContract.StudentInfoEntry.COLUMN_NAME_STUDENT_AGE;
 import static com.buaa.sample.dao.db.StudentInfoContract.StudentInfoEntry.COLUMN_NAME_STUDENT_NAME;
 import static com.buaa.sample.dao.db.StudentInfoContract.StudentInfoEntry.TABLE_NAME;
@@ -46,7 +46,7 @@ public class StudentDao {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_STUDENT_NAME, info.getName());
-        values.put(COLUMN_NAME_CLASS_NAME, info.getClassName());
+        values.put(COLUMN_NAME_MAJOR_INDEX, info.getIndex());
         values.put(COLUMN_NAME_STUDENT_AGE, info.getAge());
         db.insert(TABLE_NAME, null, values);
     }
@@ -58,7 +58,7 @@ public class StudentDao {
      */
     public List<StudentInfo> query() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {_ID, COLUMN_NAME_STUDENT_NAME, COLUMN_NAME_CLASS_NAME, COLUMN_NAME_STUDENT_AGE};
+        String[] projection = {_ID, COLUMN_NAME_STUDENT_NAME, COLUMN_NAME_MAJOR_INDEX, COLUMN_NAME_STUDENT_AGE};
         Cursor cursor = db.query(
                 TABLE_NAME,
                 projection,
@@ -69,7 +69,7 @@ public class StudentDao {
             StudentInfo info = new StudentInfo();
             info.setId(cursor.getString(cursor.getColumnIndexOrThrow(_ID)));
             info.setName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_STUDENT_NAME))); // student name
-            info.setClassName(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CLASS_NAME))); // student class name
+            info.setIndex(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_MAJOR_INDEX))); // student major index
             info.setAge(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_STUDENT_AGE))); // age
             list.add(info);
         }
@@ -86,7 +86,7 @@ public class StudentDao {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_STUDENT_NAME, info.getName());
-        values.put(COLUMN_NAME_CLASS_NAME, info.getClassName());
+        values.put(COLUMN_NAME_MAJOR_INDEX, info.getIndex());
         values.put(COLUMN_NAME_STUDENT_AGE, info.getAge());
 
         String selection = _ID + " LIKE ?";
