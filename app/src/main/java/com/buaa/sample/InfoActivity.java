@@ -38,11 +38,11 @@ public class InfoActivity extends AppCompatActivity {
         activityInfoBinding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(activityInfoBinding.getRoot());
 
-        final StudentDao dao = StudentDao.getInstance(this);
-
+        initViews((StudentInfo) getIntent().getSerializableExtra("info"));
         initSpinner();
+    }
 
-        StudentInfo info = (StudentInfo) getIntent().getSerializableExtra("info");
+    private void initViews(StudentInfo info) {
         if (info != null) {
             activityInfoBinding.btnAdd.setVisibility(View.GONE);
             activityInfoBinding.etName.setText(info.getName());
@@ -55,14 +55,13 @@ public class InfoActivity extends AppCompatActivity {
             activityInfoBinding.btnUpdate.setVisibility(View.GONE);
         }
 
-        // ...
         activityInfoBinding.btnAdd.setOnClickListener(view -> {
             StudentInfo student = new StudentInfo(
                     activityInfoBinding.etName.getText().toString(),
                     majorIndex,
                     Integer.parseInt(activityInfoBinding.etAge.getText().toString())
             );
-            dao.insert(student);
+            StudentDao.getInstance(this).insert(student);
             finish();
         });
 
@@ -74,28 +73,20 @@ public class InfoActivity extends AppCompatActivity {
             );
             assert info != null;
             student.setId(info.getId());
-            dao.update(student);
+            StudentDao.getInstance(this).update(student);
             finish();
         });
 
         activityInfoBinding.btnDelete.setOnClickListener(view -> {
             assert info != null;
-            dao.delete(info.getId());
+            StudentDao.getInstance(this).delete(info.getId());
             finish();
         });
     }
 
     private void initSpinner() {
-        String[] strings = new String[Major.values().length];
-        int index = 0;
-        for (Major major : Major.values()) {
-            strings[index] = major.name;
-            index++;
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, strings);
-        activityInfoBinding.spinnerMajor.setAdapter(adapter);
-
+        activityInfoBinding.spinnerMajor
+                .setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, Major.getMajorArray()));
         activityInfoBinding.spinnerMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -122,5 +113,4 @@ public class InfoActivity extends AppCompatActivity {
         StudentDao.getInstance(this).disconnect();
         activityInfoBinding = null;
     }
-
 }

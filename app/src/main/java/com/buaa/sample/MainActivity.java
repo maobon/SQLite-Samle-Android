@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
+        initViews();
+    }
+
+    private void initViews() {
         mStudentInfoAdapter = new StudentInfoAdapter();
 
         RecyclerView recyclerView = activityMainBinding.getRoot();

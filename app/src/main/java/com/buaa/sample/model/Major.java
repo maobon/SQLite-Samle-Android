@@ -11,4 +11,14 @@ public enum Major {
     Major(String name) {
         this.name = name;
     }
+
+    public static String[] getMajorArray() {
+        String[] array = new String[values().length];
+        int index = 0;
+        for (Major major : Major.values()) {
+            array[index] = major.name;
+            index++;
+        }
+        return array;
+    }
 }
