@@ -7,20 +7,29 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.sample.adapter.HeaderAdapter;
+import com.buaa.sample.adapter.SimpleListener;
 import com.buaa.sample.adapter.StudentInfoAdapter;
 import com.buaa.sample.dao.StudentDao;
 import com.buaa.sample.databinding.ActivityMainBinding;
 import com.buaa.sample.model.StudentInfo;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding activityMainBinding;
     private StudentInfoAdapter mStudentInfoAdapter;
+
+    // 默认专业排序
+    private Comparator<StudentInfo> mComparator = Comparator.comparingInt(StudentInfo::getIndex);
+    private boolean flag = false;
+    private boolean flag2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +40,47 @@ public class MainActivity extends AppCompatActivity {
         initViews();
     }
 
+
     private void initViews() {
+        HeaderAdapter headerAdapter = new HeaderAdapter();
+
         mStudentInfoAdapter = new StudentInfoAdapter();
+        mStudentInfoAdapter.setSimpleListener(new SimpleListener() {
+            @Override
+            public void onContentItemClick(StudentInfo studentInfo) {
+                InfoActivity.launch(MainActivity.this, studentInfo);
+            }
+        });
+
+        headerAdapter.setSimpleListener(new SimpleListener() {
+            @Override
+            public void onHeaderItemClick(int buttonId) {
+
+                if (R.id.btn_order_by_age == buttonId) {
+                    flag = !flag;
+                    mComparator = Comparator.comparingInt(StudentInfo::getAge);
+                    if (flag)
+                        mComparator = mComparator.reversed();
+
+                } else if (R.id.btn_order_by_major == buttonId) {
+                    flag2 = !flag2;
+                    mComparator = Comparator.comparingInt(StudentInfo::getIndex);
+
+                    if (flag2)
+                        mComparator = mComparator.reversed();
+                }
+
+                updateRecyclerView();
+            }
+        });
 
         RecyclerView recyclerView = activityMainBinding.getRoot();
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mStudentInfoAdapter);
 
-        mStudentInfoAdapter.setClickListener((adapterPosition, studentInfo) -> {
-            InfoActivity.launch(MainActivity.this, studentInfo);
-        });
+        ConcatAdapter concatAdapter = new ConcatAdapter(headerAdapter, mStudentInfoAdapter);
+        recyclerView.setAdapter(concatAdapter);
     }
 
     @Override
@@ -66,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateRecyclerView() {
         List<StudentInfo> list = StudentDao.getInstance(this).query();
+        list.sort(mComparator);
+
         mStudentInfoAdapter.refreshDataSet(list);
     }
 
