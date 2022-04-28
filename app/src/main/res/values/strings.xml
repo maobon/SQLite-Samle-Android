@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sample</string>
+    <string name="app_name">SQLite数据库案例</string>
 
     <string name="title_name">姓名</string>
     <string name="title_classname">班级</string>

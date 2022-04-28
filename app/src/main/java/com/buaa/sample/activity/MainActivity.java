@@ -40,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
+        if (StudentDao.getInstance(this).query().size() == 0)
+            InfoActivity.launch(this);
+
         initViews();
     }
-
 
     private void initViews() {
         HeaderAdapter headerAdapter = new HeaderAdapter();
