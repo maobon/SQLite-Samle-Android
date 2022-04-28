@@ -22,10 +22,21 @@ public class InfoActivity extends AppCompatActivity {
     private ActivityInfoBinding activityInfoBinding;
     private int majorIndex;
 
+    /**
+     * 启动
+     *
+     * @param activity Activity
+     */
     public static void launch(Activity activity) {
         launch(activity, null);
     }
 
+    /**
+     * 启动
+     *
+     * @param activity Activity
+     * @param info     StudentInfo
+     */
     public static void launch(Activity activity, StudentInfo info) {
         Intent intent = new Intent(activity, InfoActivity.class);
         if (info != null)
@@ -44,18 +55,19 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void initViews(StudentInfo info) {
+        // display current select student info
         if (info != null) {
             activityInfoBinding.btnAdd.setVisibility(View.GONE);
             activityInfoBinding.etName.setText(info.getName());
             activityInfoBinding.spinnerMajor.setSelection(info.getIndex());
             activityInfoBinding.etAge.setText(String.valueOf(info.getAge()));
-
         } else {
             generateRandomData();
             activityInfoBinding.btnDelete.setVisibility(View.GONE);
             activityInfoBinding.btnUpdate.setVisibility(View.GONE);
         }
 
+        // add new student info
         activityInfoBinding.btnAdd.setOnClickListener(view -> {
             StudentInfo student = new StudentInfo(
                     activityInfoBinding.etName.getText().toString(),
@@ -66,6 +78,7 @@ public class InfoActivity extends AppCompatActivity {
             finish();
         });
 
+        // update student info
         activityInfoBinding.btnUpdate.setOnClickListener(view -> {
             StudentInfo student = new StudentInfo(
                     activityInfoBinding.etName.getText().toString(),
@@ -78,6 +91,7 @@ public class InfoActivity extends AppCompatActivity {
             finish();
         });
 
+        // delete student info
         activityInfoBinding.btnDelete.setOnClickListener(view -> {
             assert info != null;
             StudentDao.getInstance(this).delete(info.getId());

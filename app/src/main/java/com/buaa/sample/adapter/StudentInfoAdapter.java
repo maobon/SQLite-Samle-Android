@@ -23,7 +23,6 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
 
     private final List<StudentInfo> studentInfoList = new ArrayList<>();
 
-    // interface
     private SimpleListener simpleListener;
 
     public void setSimpleListener(SimpleListener simpleListener) {
@@ -49,7 +48,6 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
         } else {
             StudentInfo studentInfo = studentInfoList.get(position);
             Bundle bundle = (Bundle) payloads.get(0);
-
             for (String key : bundle.keySet()) {
                 switch (key) {
                     case "age":
@@ -71,6 +69,11 @@ public class StudentInfoAdapter extends RecyclerView.Adapter<StudentInfoAdapter.
         return studentInfoList.size();
     }
 
+    /**
+     * 刷新列表
+     *
+     * @param dataSet List<StudentInfo>
+     */
     public void refreshDataSet(List<StudentInfo> dataSet) {
         DiffUtil.DiffResult diffResult =
                 DiffUtil.calculateDiff(new DiffUtilCallback(studentInfoList, dataSet));

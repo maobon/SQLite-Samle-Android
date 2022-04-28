@@ -29,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private StudentInfoAdapter mStudentInfoAdapter;
     private ConcatAdapter mConcatAdapter;
 
-    // 默认专业排序
-    private Comparator<StudentInfo> mComparator = Comparator.comparingInt(StudentInfo::getIndex);
-    private boolean flag = false;
-    private boolean flag2 = false;
+    private Comparator<StudentInfo> mComparator = Comparator.comparingInt(StudentInfo::getIndex); // 默认专业排序
+    private boolean ageOrderFlag, majorIndexOrderFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,25 +58,18 @@ public class MainActivity extends AppCompatActivity {
         headerAdapter.setSimpleListener(new SimpleListener() {
             @Override
             public void onHeaderItemClick(int buttonId) {
-
                 if (R.id.btn_order_by_age == buttonId) {
-
-                    flag = !flag;
+                    // 根据年龄排序
+                    ageOrderFlag = !ageOrderFlag;
                     mComparator = Comparator.comparingInt(StudentInfo::getAge);
-                    if (flag) {
-                        mComparator = mComparator.reversed();
-                    }
+                    if (ageOrderFlag) mComparator = mComparator.reversed();
 
                 } else if (R.id.btn_order_by_major == buttonId) {
-
-                    flag2 = !flag2;
+                    // 根据专业排序
+                    majorIndexOrderFlag = !majorIndexOrderFlag;
                     mComparator = Comparator.comparingInt(StudentInfo::getIndex);
-
-                    if (flag2) {
-                        mComparator = mComparator.reversed();
-                    }
+                    if (majorIndexOrderFlag) mComparator = mComparator.reversed();
                 }
-
                 updateRecyclerView();
             }
         });
@@ -114,14 +105,10 @@ public class MainActivity extends AppCompatActivity {
     private void updateRecyclerView() {
         List<StudentInfo> list = StudentDao.getInstance(this).query();
         list.sort(mComparator);
-
         RecyclerView recyclerView = activityMainBinding.getRoot();
-        if (list.size() < 2) {
+        if (list.size() < 2)
             recyclerView.setAdapter(mStudentInfoAdapter);
-        } else {
-            recyclerView.setAdapter(mConcatAdapter);
-        }
-
+        else recyclerView.setAdapter(mConcatAdapter);
         mStudentInfoAdapter.refreshDataSet(list);
     }
 
