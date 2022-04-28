@@ -39,8 +39,8 @@ public class InfoActivity extends AppCompatActivity {
         activityInfoBinding = ActivityInfoBinding.inflate(getLayoutInflater());
         setContentView(activityInfoBinding.getRoot());
 
-        initViews((StudentInfo) getIntent().getSerializableExtra("info"));
         initSpinner();
+        initViews((StudentInfo) getIntent().getSerializableExtra("info"));
     }
 
     private void initViews(StudentInfo info) {
