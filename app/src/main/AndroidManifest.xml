@@ -11,7 +11,7 @@
         android:theme="@style/Theme.SQLiteSample">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
 
             <intent-filter>
@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".InfoActivity"
+            android:name=".activity.InfoActivity"
             android:exported="false" />
     </application>
 </manifest>

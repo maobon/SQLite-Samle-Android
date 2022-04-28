@@ -1,4 +1,4 @@
-package com.buaa.sample;
+package com.buaa.sample.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,10 +9,11 @@ import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.buaa.sample.R;
 import com.buaa.sample.dao.StudentDao;
 import com.buaa.sample.databinding.ActivityInfoBinding;
-import com.buaa.sample.model.Major;
 import com.buaa.sample.model.StudentInfo;
+import com.buaa.sample.utils.Major;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.buaa.sample.adapter;
+package com.buaa.sample.adapter.diff;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import com.buaa.sample.model.StudentInfo;
 
 import java.util.List;
 
-class DiffUtilCallback extends DiffUtil.Callback {
+public class DiffUtilCallback extends DiffUtil.Callback {
 
     private final List<StudentInfo> oldList;
     private final List<StudentInfo> newList;

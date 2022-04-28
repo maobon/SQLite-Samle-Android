@@ -1,4 +1,4 @@
-package com.buaa.sample.model;
+package com.buaa.sample.utils;
 
 public enum Major {
 

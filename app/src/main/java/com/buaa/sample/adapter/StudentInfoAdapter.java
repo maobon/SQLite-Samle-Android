@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buaa.sample.R;
-import com.buaa.sample.model.Major;
+import com.buaa.sample.adapter.callback.SimpleListener;
+import com.buaa.sample.adapter.diff.DiffUtilCallback;
 import com.buaa.sample.model.StudentInfo;
+import com.buaa.sample.utils.Major;
 
 import java.util.ArrayList;
 import java.util.List;

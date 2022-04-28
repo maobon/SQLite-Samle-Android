@@ -1,10 +1,9 @@
-package com.buaa.sample;
+package com.buaa.sample.activity;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +11,10 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.sample.R;
 import com.buaa.sample.adapter.HeaderAdapter;
-import com.buaa.sample.adapter.SimpleListener;
 import com.buaa.sample.adapter.StudentInfoAdapter;
+import com.buaa.sample.adapter.callback.SimpleListener;
 import com.buaa.sample.dao.StudentDao;
 import com.buaa.sample.databinding.ActivityMainBinding;
 import com.buaa.sample.model.StudentInfo;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                     flag = !flag;
                     mComparator = Comparator.comparingInt(StudentInfo::getAge);
-                    if (flag){
+                    if (flag) {
                         mComparator = mComparator.reversed();
                     }
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     flag2 = !flag2;
                     mComparator = Comparator.comparingInt(StudentInfo::getIndex);
 
-                    if (flag2){
+                    if (flag2) {
                         mComparator = mComparator.reversed();
                     }
                 }

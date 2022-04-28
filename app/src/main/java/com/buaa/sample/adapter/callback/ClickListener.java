@@ -1,4 +1,4 @@
-package com.buaa.sample.adapter;
+package com.buaa.sample.adapter.callback;
 
 import com.buaa.sample.model.StudentInfo;
 
